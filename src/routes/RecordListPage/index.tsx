@@ -1,8 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import RecordList from './RecordList';
 
 const RecordListPage: React.FC = () => {
   return (
-    <div>record list page</div>
+    <>
+      <Link to="/">v</Link>
+      <RecordList />
+      <Link to="/records/new">Lisää kirjaus</Link>
+    </>
   );
 };
 

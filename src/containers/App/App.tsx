@@ -3,8 +3,6 @@ import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
 import 'firebase/firestore';
 import configureStore from 'src/store/createStore';
 import { fbConfig, rfConfig } from 'src/config';

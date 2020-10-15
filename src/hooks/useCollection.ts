@@ -8,6 +8,8 @@ export interface UseCollectionOptions {
   collection: string;
   populates?: { child: string, root: string }[];
   where?: any;
+  orderBy?: any;
+  limit?: number;
   storeAs?: string;
 }
 

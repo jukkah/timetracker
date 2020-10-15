@@ -9,6 +9,7 @@ type useSaveCallbackHookType = (
   id?: string,
   options?: {
     preSave?: (values: any) => any;
+    postSave?: () => void;
   }
 ) => ReturnType<typeof useCallback>;
 
@@ -21,21 +22,25 @@ const useSaveCallback: useSaveCallbackHookType = (
   const firestore = useFirestore();
   const history = useHistory();
   const preSave = options?.preSave ?? (values => values);
+  const postSave = options?.postSave ?? (() => {});
 
   return useCallback((values: any) => {
     const sanitizedValues = preSave(sanitize(values));
     setSaving(true);
 
     if (id) {
-      return firestore.set(`${collectionName}/${id}`, sanitizedValues).finally(() => setSaving(false));
-    } else {
-      return firestore.add(collectionName, sanitizedValues)
+      return firestore
+        .set(`${collectionName}/${id}`, sanitizedValues)
         .finally(() => setSaving(false))
-        .then(({ id }) => {
-          history.push(`/${collectionName}/${id}`);
-        });
+        .then(postSave);
+    } else {
+      return firestore
+        .add(collectionName, sanitizedValues)
+        .finally(() => setSaving(false))
+        .then(({ id }) => history.push(`/${collectionName}/${id}`))
+        .then(postSave);
     }
-  }, [preSave, setSaving, id, collectionName, firestore, history]);
+  }, [preSave, postSave, setSaving, id, collectionName, firestore, history]);
 };
 
 export default useSaveCallback;
