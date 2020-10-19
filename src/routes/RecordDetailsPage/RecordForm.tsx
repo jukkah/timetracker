@@ -16,7 +16,8 @@ interface RecordFormProps {
 
 const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { handleSubmit, register, errors, reset } = useForm();
+  const { handleSubmit, register, watch, errors, reset } = useForm();
+  const timestamp = watch('timestamp');
 
   const firestore = useFirestore();
   const history = useHistory();
@@ -27,7 +28,7 @@ const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
 
   const preSave = (values: any) => ({
     type: values.type,
-    timestamp: f.Timestamp.fromMillis(dayjs(`${values.date}T${values.time}`).valueOf())
+    timestamp: f.Timestamp.fromMillis(dayjs(values.timestamp).valueOf())
   });
 
   const postSave = () => history.push(`/records`);
@@ -37,8 +38,7 @@ const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
       const timestamp = dayjs(initialValues.timestamp.toMillis());
       reset({
         type: initialValues.type,
-        date: timestamp.format('YYYY-MM-DD'),
-        time: timestamp.format('HH:mm:ss'),
+        timestamp: timestamp.format('YYYY-MM-DDTHH:mm'),
       });
     }
   }, [initialValues, reset]);
@@ -62,26 +62,22 @@ const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
             </div>
           </div>
 
-          <div className={cx('input', { invalid: errors.date || errors.time })}>
-            <div className="label">Ajankohta</div>
+          <div className={cx('input', { invalid: errors.timestamp })}>
+            <label htmlFor="timestamp" className="label">Ajankohta</label>
             <div className="field datetime">
-              <input
-                type="date"
-                name="date"
-                id="date"
-                max={dayjs().format('YYYY-MM-DD')}
-                ref={register({ required: true })}
-              />
-              <input
-                type="time"
-                name="time"
-                id="time"
-                step={1}
-                ref={register({ required: true })}
-              />
+              <label>
+                <input
+                  type="datetime-local"
+                  name="timestamp"
+                  id="timestamp"
+                  max={dayjs().format('YYYY-MM-DDTHH:mm')}
+                  ref={register({ required: true })}
+                />
+                <div className="view">{timestamp ? dayjs(timestamp).format('DD.MM.YYYY HH:mm') : ''}</div>
+              </label>
             </div>
             <div className="errors">
-              {(errors.date || errors.time) && 'Ajankohta puuttuu'}
+              {errors.timestamp && 'Ajankohta puuttuu'}
             </div>
           </div>
         </form>

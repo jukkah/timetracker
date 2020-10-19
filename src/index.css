@@ -100,25 +100,16 @@ body {
 }
 
 .datetime input {
-  font: inherit;
-  color: inherit;
-  appearance: none;
-  outline: none;
-  border: 0;
-  background-color: transparent;
-  padding: 0 8px;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
 }
 
-.datetime input[type=date] {
-  padding-right: 4px;
+.datetime .view {
   height: 36px;
   line-height: 36px;
-}
-
-.datetime input[type=time] {
-  padding-left: 4px;
-  height: 36px;
-  line-height: 36px;
+  padding: 0px 8px;
 }
 
 .page {
