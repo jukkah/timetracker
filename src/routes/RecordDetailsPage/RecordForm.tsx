@@ -65,8 +65,20 @@ const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
           <div className={cx('input', { invalid: errors.date || errors.time })}>
             <div className="label">Ajankohta</div>
             <div className="field datetime">
-              <input type="date" name="date" id="date" max={dayjs().format('YYYY-MM-DD')} ref={register({ required: true })} />
-              <input type="time" name="time" id="time" step={1} ref={register({ required: true })} />
+              <input
+                type="date"
+                name="date"
+                id="date"
+                max={dayjs().format('YYYY-MM-DD')}
+                ref={register({ required: true })}
+              />
+              <input
+                type="time"
+                name="time"
+                id="time"
+                step={1}
+                ref={register({ required: true })}
+              />
             </div>
             <div className="errors">
               {(errors.date || errors.time) && 'Ajankohta puuttuu'}

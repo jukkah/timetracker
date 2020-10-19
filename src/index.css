@@ -106,17 +106,17 @@ body {
   outline: none;
   border: 0;
   background-color: transparent;
-  padding: 0;
+  padding: 0 8px;
 }
 
 .datetime input[type=date] {
-  padding-left: 8px;
+  padding-right: 4px;
   height: 36px;
   line-height: 36px;
 }
 
 .datetime input[type=time] {
-  padding-right: 8px;
+  padding-left: 4px;
   height: 36px;
   line-height: 36px;
 }
@@ -158,10 +158,16 @@ main {
 footer {
   flex: 0 0 auto;
   display: flex;
+  margin: 0 16px 16px 16px;
 }
 
 footer .button {
   flex: 1;
+  margin: 0;
+}
+
+footer .button ~ .button {
+  margin-left: 16px;
 }
 
 .input.invalid {
