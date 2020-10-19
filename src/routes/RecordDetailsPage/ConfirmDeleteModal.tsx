@@ -7,11 +7,15 @@ interface ConfirmDeleteModalProps {
 
 const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({ onCancel, onDelete }) => {
   return (
-    <>
-      Poistetaanko kirjaus?
-      <button onClick={onCancel}>Peruuta</button>
-      <button onClick={onDelete}>Poista</button>
-    </>
+    <div className="page modal">
+      <main>
+        Poistetaanko kirjaus?
+      </main>
+      <footer>
+        <button onClick={onCancel} className="button">Peruuta</button>
+        <button onClick={onDelete} className="button primary danger">Poista</button>
+      </footer>
+    </div>
   );
 };
 

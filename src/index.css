@@ -1,3 +1,7 @@
+html {
+  height: 100vh;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +11,190 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  font-size: 18px;
+}
+
+:focus-visible {
+  outline: 4px dashed black;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.button {
+  border: 1px solid black;
+  background: white;
+  height: 60px;
+  color: black;
+  text-decoration: none;
+  margin: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button.call-to-action {
+  border-radius: 12px;
+}
+
+.button.primary {
+  border-color: #001DBC;
+  background: #0050EF;
+  color: white;
+}
+
+.button.danger {
+  border-color: #A20025;
+  color: #A20025;
+}
+
+.button.primary.danger {
+  border-color: #6F0000;
+  background: #A20025;
+  color: white;
+}
+
+.switch input[type="radio"] {
+  display: none;
+}
+
+.switch label {
+  border: 1px solid black;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  height: 36px;
+  line-height: 36px;
+}
+
+.input.invalid label, .input.invalid .field {
+  border-color: #E51400;
+}
+
+.switch input[type=radio]:checked + label {
+  border-color: #001DBC;
+  background: #0050EF;
+  color: white;
+}
+
+.input.invalid.switch input[type=radio]:checked + label {
+  border-color: #E51400;
+}
+
+.switch input[type=radio]:not(:checked) + .left {
+  border-right-width: 0;
+}
+
+.switch input[type=radio]:not(:checked) + .right {
+  border-left-width: 0;
+}
+
+.switch input[type=radio]:not(:checked) ~ input[type=radio]:not(:checked) + .right {
+  border-left-width: 1px;
+}
+
+.datetime {
+  border: 1px solid black;
+}
+
+.datetime input {
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  outline: none;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.datetime input[type=date] {
+  padding-left: 8px;
+  height: 36px;
+  line-height: 36px;
+}
+
+.datetime input[type=time] {
+  padding-right: 8px;
+  height: 36px;
+  line-height: 36px;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  flex: 0 0 auto;
+  border-bottom: 1px solid black;
+  height: 60px;
+}
+
+header .action {
+  position: absolute;
+  padding: 16px;
+  color: black;
+}
+
+header h1 {
+  height: 60px;
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+  text-align: center;
+  line-height: 60px;
+}
+
+main {
+  flex: 1 1 auto;
+  position: relative;
+  overflow-y: auto;
+  margin: 16px;
+}
+
+footer {
+  flex: 0 0 auto;
+  display: flex;
+}
+
+footer .button {
+  flex: 1;
+}
+
+.input.invalid {
+  color: #E51400;
+  border-color: #E51400;
+}
+
+.input .field {
+  display: flex;
+  flex: 0 0 auto;
+  margin-top: 4px;
+}
+
+.input .field * {
+  flex: 1;
+}
+
+.input ~ .input {
+  margin-top: 16px;
+}
+
+.input .errors {
+  margin-top: 4px;
+}
+
+#main-page {
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 1000;
 }

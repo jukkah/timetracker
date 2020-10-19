@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import useSaveCallback from 'src/hooks/useSaveCallback';
 import { useFirestore } from 'react-redux-firebase';
 import { useHistory } from 'react-router-dom';
+import cx from 'classnames';
 
 interface RecordFormProps {
   id?: string;
@@ -44,23 +45,54 @@ const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(useSaveCallback(() => {}, 'records', id, { preSave, postSave }))}>
-        Kirjaus
-        <input type="radio" name="type" value="in" id="type_in" ref={register({ required: true })} />
-        <label htmlFor="type_in">Sisään</label>
-        <input type="radio" name="type" value="out" id="type_out" ref={register({ required: true })} />
-        <label htmlFor="type_out">Ulos</label>
-        {errors.type && 'Kirjaus puuttuu'}
-
-        Ajankohta
-        <input type="date" name="date" id="date" max={dayjs().format('YYYY-MM-DD')} ref={register({ required: true })} />
-        <input type="time" name="time" id="time" step={1} ref={register({ required: true })} />
-        {(errors.date || errors.time) && 'Ajankohta puuttuu'}
-
-        {!!id && <button type="button" onClick={() => setModalOpen(true)}>Poista</button>}
-        <button type="submit">Tallenna</button>
-      </form>
       {isModalOpen && <ConfirmDeleteModal onCancel={() => setModalOpen(false)} onDelete={onDelete}/>}
+
+      <main>
+        <form>
+          <div className={cx('input', { invalid: errors.type })}>
+            <div className="label">Kirjaus</div>
+            <div className="field switch">
+              <input type="radio" name="type" value="in" id="type_in" ref={register({ required: true })} />
+              <label htmlFor="type_in" className="left" tabIndex={0}>Sisään</label>
+              <input type="radio" name="type" value="out" id="type_out" ref={register({ required: true })} />
+              <label htmlFor="type_out" className="right" tabIndex={0}>Ulos</label>
+            </div>
+            <div className="errors">
+              {errors.type && 'Kirjaus puuttuu'}
+            </div>
+          </div>
+
+          <div className={cx('input', { invalid: errors.date || errors.time })}>
+            <div className="label">Ajankohta</div>
+            <div className="field datetime">
+              <input type="date" name="date" id="date" max={dayjs().format('YYYY-MM-DD')} ref={register({ required: true })} />
+              <input type="time" name="time" id="time" step={1} ref={register({ required: true })} />
+            </div>
+            <div className="errors">
+              {(errors.date || errors.time) && 'Ajankohta puuttuu'}
+            </div>
+          </div>
+        </form>
+      </main>
+
+      <footer>
+        {!!id && (
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
+            className="button danger"
+          >
+            Poista
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={handleSubmit(useSaveCallback(() => {}, 'records', id, { preSave, postSave }))}
+          className="button primary"
+        >
+          Tallenna
+        </button>
+      </footer>
     </>
   );
 };

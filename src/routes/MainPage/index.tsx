@@ -4,6 +4,7 @@ import { useFirestore } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
 import useCollection from 'src/hooks/useCollection';
 import { Record } from 'src/store/types';
+import cx from 'classnames';
 
 const MainPage: React.FC = () => {
   const firestore = useFirestore();
@@ -15,12 +16,30 @@ const MainPage: React.FC = () => {
   };
 
   return (
-    <>
-      {isLoading ? 'Ladataan...' : inside ? 'Olet nyt sisällä' : 'Olet nyt ulkona'}
-      <button onClick={() => change('in')}>Sisään</button>
-      <button onClick={() => change('out')}>Ulos</button>
-      <Link to="/records">Pyyhkäise ylös</Link>
-    </>
+    <div className="page" id="main-page">
+      <div className="status">
+        {isLoading ? 'Ladataan...' : inside ? 'Olet nyt sisällä' : 'Olet nyt ulkona'}
+      </div>
+      <div>
+        <button
+          onClick={() => change('in')}
+          className={cx('button call-to-action', { primary: !inside })}
+        >
+          Sisään
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() => change('out')}
+          className={cx('button call-to-action', { primary: inside })}
+        >
+          Ulos
+        </button>
+      </div>
+      <footer>
+        <Link to="/records">Pyyhkäise ylös</Link>
+      </footer>
+    </div>
   );
 };
 
