@@ -11,6 +11,7 @@ const RecordListPage: React.FC = () => {
 
   return (
     <Swipeable
+      trackMouse
       onSwipedDown={() => {
         if (swipeEnabled) {
           history.push('/');

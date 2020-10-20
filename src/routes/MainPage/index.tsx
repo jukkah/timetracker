@@ -19,7 +19,7 @@ const MainPage: React.FC = () => {
   };
 
   return (
-    <Swipeable onSwipedUp={() => history.push('/records')}>
+    <Swipeable onSwipedUp={() => history.push('/records')} trackMouse>
       <div className="page" id="main-page">
         <main>
           <div className="status">
