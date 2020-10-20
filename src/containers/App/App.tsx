@@ -10,6 +10,7 @@ import Router from './Router';
 
 // Initialize Firebase instance
 firebase.initializeApp(fbConfig || process.env.REACT_APP_FIREBASE_CONFIG);
+firebase.firestore().enablePersistence();
 
 // Store Initialization
 // ------------------------------------
