@@ -1,5 +1,6 @@
 html {
   height: 100vh;
+  user-select: none;
 }
 
 body {
@@ -37,6 +38,8 @@ body {
 
 .button.call-to-action {
   border-radius: 12px;
+  width: 80vw;
+  height: 72px;
 }
 
 .button.primary {
@@ -140,25 +143,37 @@ header h1 {
 }
 
 main {
+  display: flex;
   flex: 1 1 auto;
   position: relative;
   overflow-y: auto;
   margin: 16px;
+  margin-bottom: 76px;
+}
+
+main form {
+  flex: 1;
 }
 
 footer {
-  flex: 0 0 auto;
   display: flex;
-  margin: 0 16px 16px 16px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
 }
 
 footer .button {
   flex: 1;
-  margin: 0;
+  margin: 16px;;
 }
 
 footer .button ~ .button {
-  margin-left: 16px;
+  margin-left: 0px;
+}
+
+.modal footer {
+  position: initial;
 }
 
 .input.invalid {
@@ -184,14 +199,123 @@ footer .button ~ .button {
   margin-top: 4px;
 }
 
+.backdrop {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .backdrop {
+    backdrop-filter: blur(4px);
+    background-color: transparent;
+  }
+}
+
+.modal {
+  background-color: white;
+  border: 1px solid black;
+  width: 80vw;
+}
+
+.modal main {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.records {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.records li a {
+  display: block;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  text-decoration: none;
+  color: black;
+}
+
+.records li a span {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+
+li.separator {
+  text-align: center;
+  border-bottom: 1px solid #666666;
+  height: 0px;
+  margin: 20px 0;
+  color: #666666;
+}
+
+li.separator span {
+  background: white;
+  padding: 0 10px;
+  font-size: 14px;
+  position: relative;
+  top: -12px;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom {
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 16px;
+}
+
+.bottom .shake {
+  margin-bottom: -10px;
+}
+
+.top {
+  text-align: center;
+  height: 0;
+}
+
+.shake {
+  animation: shake 10s infinite;
+  transform: translate3d(0, 0, 0);
+  color: #666666;
+}
+
+@keyframes shake {
+  0%   { transform: translate3d(0,  0px, 0); }
+  2%   { transform: translate3d(0, -1px, 0); }
+  4%   { transform: translate3d(0,  2px, 0); }
+  6%   { transform: translate3d(0, -3px, 0); }
+  8%   { transform: translate3d(0,  3px, 0); }
+  10%   { transform: translate3d(0, -2px, 0); }
+  12%   { transform: translate3d(0,  1px, 0); }
+  14%   { transform: translate3d(0,  0px, 0); }
+  100% { transform: translate3d(0,  0px, 0); }
+}
+
 #main-page {
   text-align: center;
 }
 
-.modal {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  background: white;
-  z-index: 1000;
+#main-page main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
 }

@@ -10,21 +10,19 @@ const RecordList: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div>Ladataan...</div>
+      <div className="center">Ladataan...</div>
     );
   }
 
   if (isEmpty) {
     return (
-      <div>
-        Tyhjää täynnä
-      </div>
+      <div className="center">Ei kirjauksia</div>
     );
   }
 
   const items = documents.reduce(({ items, prev }, record) => {
     const currentDay = dayjs(record.timestamp.toMillis());
-    const prevDay = dayjs(prev?.timestamp.toMillis() ?? record.timestamp.toMillis());
+    const prevDay = prev ? dayjs(prev?.timestamp.toMillis()) : dayjs();
     return {
       items: [
         ...items,
@@ -36,12 +34,12 @@ const RecordList: React.FC = () => {
   }, { items: [], prev: undefined } as { items: any[], prev: WithID<Record> | undefined }).items;
 
   return (
-    <ul>
+    <ul className="records">
       {items.map((item: WithID<Record> | string) => {
         if (typeof item === 'string') {
           return (
-            <li key={item}>
-              {item}
+            <li key={item} className="separator">
+              <span>{item}</span>
             </li>
           );
         }
@@ -49,8 +47,8 @@ const RecordList: React.FC = () => {
         return (
           <li key={item.id}>
             <Link to={`/records/${item.id}`}>
-              {item.type === 'in' ? 'Sisään' : 'Ulos'}
-              {dayjs(item.timestamp.toMillis()).format('HH:mm')}
+              <span>{item.type === 'in' ? 'Sisään' : 'Ulos'}</span>
+              <span>{dayjs(item.timestamp.toMillis()).format('HH:mm')}</span>
             </Link>
           </li>
         );
