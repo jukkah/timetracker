@@ -28,18 +28,19 @@ const useSaveCallback: useSaveCallbackHookType = (
     const sanitizedValues = preSave(sanitize(values));
     setSaving(true);
 
-    if (id) {
-      return firestore
-        .set(`${collectionName}/${id}`, sanitizedValues)
-        .finally(() => setSaving(false))
-        .then(postSave);
-    } else {
-      return firestore
-        .add(collectionName, sanitizedValues)
-        .finally(() => setSaving(false))
-        .then(({ id }) => history.push(`/${collectionName}/${id}`))
-        .then(postSave);
+    const collection = firestore.collection(collectionName);
+    const doc = id ? collection.doc(id) : collection.doc();
+    const promise = doc.set(sanitizedValues);
+
+    setSaving(false);
+
+    if (! id) {
+      history.push(`/${collectionName}/${id}`);
     }
+
+    postSave();
+
+    return promise;
   }, [preSave, postSave, setSaving, id, collectionName, firestore, history]);
 };
 

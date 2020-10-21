@@ -23,7 +23,8 @@ const RecordForm: React.FC<RecordFormProps> = ({id, initialValues }) => {
   const history = useHistory();
   const onDelete = useCallback(() => {
     setModalOpen(false);
-    firestore.delete({ collection: 'records', doc: id }).then(() => history.push(`/records`));
+    firestore.delete({ collection: 'records', doc: id });
+    history.push(`/records`);
   }, [setModalOpen, firestore, id, history]);
 
   const preSave = (values: any) => ({
