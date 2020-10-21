@@ -304,9 +304,9 @@ li.separator span {
   4%   { transform: translate3d(0,  2px, 0); }
   6%   { transform: translate3d(0, -3px, 0); }
   8%   { transform: translate3d(0,  3px, 0); }
-  10%   { transform: translate3d(0, -2px, 0); }
-  12%   { transform: translate3d(0,  1px, 0); }
-  14%   { transform: translate3d(0,  0px, 0); }
+  10%  { transform: translate3d(0, -2px, 0); }
+  12%  { transform: translate3d(0,  1px, 0); }
+  14%  { transform: translate3d(0,  0px, 0); }
   100% { transform: translate3d(0,  0px, 0); }
 }
 
@@ -319,4 +319,30 @@ li.separator span {
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
+}
+
+.records li.changed a span:first-of-type {
+  background: linear-gradient(to right, transparent 0%, #BBEF88 7%, transparent 25%);
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  animation: to-left .5s;
+  animation-fill-mode: forwards;
+}
+
+.records li.changed a span:last-of-type {
+  background: linear-gradient(to left, transparent 0%, #BBEF88 7%, transparent 25%);
+  background-size: 200% 100%;
+  background-position: 100% 0%;
+  animation: to-right .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes to-left {
+  0%   { background-position:  0% 0%; }
+  100% { background-position: 50% 0%; }
+}
+
+@keyframes to-right {
+  0%   { background-position: 100% 0%; }
+  100% { background-position:  50% 0%; }
 }

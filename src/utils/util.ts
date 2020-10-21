@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { WithID } from "src/store/types";
+import { Record, WithID } from "src/store/types";
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isoWeek from 'dayjs/plugin/isoWeek';
@@ -46,3 +46,5 @@ export const relativeDays = (date: Dayjs): string => {
 
   return date.format('D.M.YYYY');
 };
+
+export const hashRecord = (record: WithID<Record>): string => `${record.id}:${record.type}:${record.timestamp.toMillis()}`;

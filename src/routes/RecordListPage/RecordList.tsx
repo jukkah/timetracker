@@ -1,12 +1,16 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useCollection from 'src/hooks/useCollection';
 import { Record, WithID } from 'src/store/types';
-import { relativeDays } from 'src/utils/util';
+import { relativeDays, hashRecord } from 'src/utils/util';
+import cx from 'classnames';
 
 const RecordList: React.FC = () => {
   const { documents, isLoading, isEmpty } = useCollection<Record>({ collection: 'records', orderBy: ['timestamp', 'desc'] });
+  const prev = useRef<string[]>([]);
+  const ids = prev.current;
+  prev.current = documents.map(hashRecord);
 
   if (isLoading) {
     return (
@@ -45,7 +49,9 @@ const RecordList: React.FC = () => {
         }
 
         return (
-          <li key={item.id}>
+          <li key={item.id} className={cx({
+            changed: ! ids.includes(hashRecord(item)) && ids.length > 0,
+          })}>
             <Link to={`/records/${item.id}`}>
               <span>{item.type === 'in' ? 'Sisään' : 'Ulos'}</span>
               <span>{dayjs(item.timestamp.toMillis()).format('HH:mm')}</span>
